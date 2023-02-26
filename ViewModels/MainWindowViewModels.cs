@@ -2,7 +2,9 @@
 using SPT.Models;
 using SPT.Models.Context;
 using SPT.ViewModels.Base;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Windows.Input;
@@ -25,12 +27,14 @@ namespace SPT.ViewModels
         private string _tittle = "SPT";
         private Clients _selectedClient;
         private Products _selectedProduct;
+        private Managers _selectedManager;
 
         private List<Clients> _clients;
         private List<Products> _products;
         private List<Managers> _managers;
 
         private List<DisplayedProducts> _displayedProducts;
+        private ObservableCollection<Clients> _clientsByManager;
 
         public string Tittle
         {
@@ -59,15 +63,28 @@ namespace SPT.ViewModels
             get => GetSelectedClient();
             set => Set(ref _selectedClient, value);
         }
-        public Products SelectedProducts
+        public Products SelectedProduct
         {
             get => _selectedProduct;
             set => Set(ref _selectedProduct, value);
         }
+        public Managers SelectedManager
+        {
+            get => GetSelectedManager();
+            set => Set(ref _selectedManager, value);
+        }
+
+        
+
         public List<DisplayedProducts> DisplayedProducts
         {
             get => _displayedProducts;
             set => Set(ref _displayedProducts, value);
+        }
+        public ObservableCollection<Clients> ClientsByManager
+        {
+            get => _clientsByManager;
+            set => Set(ref _clientsByManager, value);
         }
 
         private Clients GetSelectedClient()
@@ -78,6 +95,15 @@ namespace SPT.ViewModels
             }
             return _selectedClient;
         }
+        private Managers GetSelectedManager()
+        {
+            if(_selectedManager != null)
+            {
+                SetClientsByManager();
+            }
+            return _selectedManager;
+        }
+
         private void SetDisplayedProducts()
         {
             if (_selectedClient == null)
@@ -101,11 +127,14 @@ namespace SPT.ViewModels
                     })
                 .ToList();
         }
-
-        public Products SelectedProduct
+        private void SetClientsByManager()
         {
-            get => _selectedProduct;
-            set => Set(ref _selectedProduct, value);
+            if (_selectedManager == null)
+            {
+                ClientsByManager.Clear();
+                return;
+            }
+            ClientsByManager = new ObservableCollection<Clients>(_db.Clients.Where(c => c.ManagerId == _selectedManager.Id));
         }
 
         public ICommand UpdateCommand { get; }

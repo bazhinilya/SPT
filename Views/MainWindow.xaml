@@ -14,7 +14,7 @@
     <Grid>
         <DockPanel>
             <TabControl>
-                <TabItem Header="Клиенты-товары">
+                <TabItem Header="Клиенты">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="400"/>
@@ -63,18 +63,34 @@
 
                     </Grid>
                 </TabItem>
+                <!--Менеджеры-->
                 <TabItem Header="Менеджеры">
                     <Grid>
-                        <GroupBox>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <GroupBox Grid.Column="0">
                             <DataGrid ItemsSource="{Binding Managers}"
-                                      AutoGenerateColumns="False">
+                                      AutoGenerateColumns="False"
+                                      SelectedItem="{Binding SelectedManager}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
                                     <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
+                        
+                        <GroupBox Grid.Column="1">
+                            <DataGrid ItemsSource="{Binding ClientsByManager}" 
+                                      AutoGenerateColumns="True"
+                                      SelectedItem="{Binding SelectedClient}">
+                                <DataGrid.Columns>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
                     </Grid>
+                    
                 </TabItem>
                 <TabItem Header="Продукты">
                     <Grid>
