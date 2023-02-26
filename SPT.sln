@@ -5,7 +5,12 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPT", "SPT.csproj", "{F58DE33B-907A-45C2-80A4-5F36D51236E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPTTest", "..\SPTTest\SPTTest.csproj", "{0A5BD4CC-3766-488A-B460-4A1C15238008}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQLScripts", "SQLScripts", "{CA0B3912-81B7-470E-ACCE-5344A77F6252}"
+	ProjectSection(SolutionItems) = preProject
+		SQLSripts\SPTDB.sql = SQLSripts\SPTDB.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{123C9BD2-9035-4EF2-B373-CD28353CB312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +22,10 @@ Global
 		{F58DE33B-907A-45C2-80A4-5F36D51236E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F58DE33B-907A-45C2-80A4-5F36D51236E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F58DE33B-907A-45C2-80A4-5F36D51236E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A5BD4CC-3766-488A-B460-4A1C15238008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A5BD4CC-3766-488A-B460-4A1C15238008}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A5BD4CC-3766-488A-B460-4A1C15238008}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A5BD4CC-3766-488A-B460-4A1C15238008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{123C9BD2-9035-4EF2-B373-CD28353CB312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{123C9BD2-9035-4EF2-B373-CD28353CB312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{123C9BD2-9035-4EF2-B373-CD28353CB312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{123C9BD2-9035-4EF2-B373-CD28353CB312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

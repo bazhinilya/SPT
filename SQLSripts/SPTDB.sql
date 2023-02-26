@@ -1,0 +1,36 @@
+
+
+CREATE DATABASE SoftTradePlus
+GO
+USE SoftTradePlus
+GO
+
+CREATE TABLE Managers
+(
+    Id INT IDENTITY(100, 1) PRIMARY KEY,
+    [Name] NVARCHAR(100) NOT NULL
+)
+
+CREATE TABLE Clients
+(
+    Id INT IDENTITY(100, 1) PRIMARY KEY,
+    [Name] NVARCHAR(100) NOT NULL,
+    ClientStatus NVARCHAR(100) NOT NULL,
+    ManagerId INT NOT NULL FOREIGN KEY REFERENCES Managers(Id)
+)
+
+CREATE TABLE Products
+(
+    Id INT IDENTITY(100, 1) PRIMARY KEY,
+    [Name] NVARCHAR(100) NOT NULL,
+    Price DECIMAL(12, 2) NOT NULL,
+    [Type] NVARCHAR(100) NOT NULL,
+    SubscriptionPeriod INT NULL
+)
+
+CREATE TABLE ClientsProducts
+(
+    Id INT IDENTITY(100, 1) PRIMARY KEY,
+    ProductId INT NOT NULL CONSTRAINT [FK_ClientsProducts_Products] FOREIGN KEY REFERENCES Products (Id),
+    ClientId INT NOT NULL CONSTRAINT [FK_ClientsProducts_Clients] FOREIGN KEY REFERENCES Clients (Id)
+)
