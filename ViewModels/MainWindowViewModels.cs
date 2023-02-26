@@ -150,6 +150,7 @@ namespace SPT.ViewModels
         private bool CanAddProductCommandExecute(object p) => true;
         private void OnAddProductCommandExecuted(object p)
         {
+            if (DisplayedProducts == null || DisplayedProducts.Count < 1) return;
             var displayedProducts = DisplayedProducts[DisplayedProducts.Count - 1];
             var clientProductsToCreate = new ClientsProducts
             {
