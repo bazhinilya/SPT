@@ -2,7 +2,6 @@
 using SPT.Models;
 using SPT.Models.Context;
 using SPT.ViewModels.Base;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
@@ -19,12 +18,19 @@ namespace SPT.ViewModels
             _products = _db.Products.ToList();
             _managers = _db.Managers.ToList();
 
-            UpdateCommand = new RelayCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
+            UpdatingAClientCommand = new RelayCommand(OnUpdatingAClientCommandExecuted, CanUpdatingAClientCommandExecute);
+            UpdatingAManagerCommand = new RelayCommand(OnUpdatingAManagerCommandExecuted, CanUpdatingAManagerCommandExecute);
+            UpdatingAProductCommand = new RelayCommand(OnUpdatingAProductCommandExecuted, CanUpdatingAProductCommandExecute);
             AddProductCommand = new RelayCommand(OnAddProductCommandExecuted, CanAddProductCommandExecute);
         }
 
         private readonly StpContext _db = new StpContext();
+
         private string _tittle = "SPT";
+        private string _tittleManagers = "Менеджеры";
+        private string _tittleClients = "Клиенты";
+        private string _tittleProducts = "Продукты";
+
         private Clients _selectedClient;
         private Products _selectedProduct;
         private Managers _selectedManager;
@@ -40,6 +46,21 @@ namespace SPT.ViewModels
         {
             get => _tittle;
             set => Set(ref _tittle, value);
+        }
+        public string TittleClients
+        {
+            get => _tittleClients;
+            set => Set(ref _tittleClients, value);
+        }
+        public string TittleManagers
+        {
+            get => _tittleManagers;
+            set => Set(ref _tittleManagers, value);
+        }
+        public string TittleProducts
+        {
+            get => _tittleProducts;
+            set => Set(ref _tittleProducts, value);
         }
 
         public List<Clients> Clients
@@ -74,8 +95,6 @@ namespace SPT.ViewModels
             set => Set(ref _selectedManager, value);
         }
 
-        
-
         public List<DisplayedProducts> DisplayedProducts
         {
             get => _displayedProducts;
@@ -97,7 +116,7 @@ namespace SPT.ViewModels
         }
         private Managers GetSelectedManager()
         {
-            if(_selectedManager != null)
+            if (_selectedManager != null)
             {
                 SetClientsByManager();
             }
@@ -137,15 +156,36 @@ namespace SPT.ViewModels
             ClientsByManager = new ObservableCollection<Clients>(_db.Clients.Where(c => c.ManagerId == _selectedManager.Id));
         }
 
-        public ICommand UpdateCommand { get; }
+        public ICommand UpdatingAClientCommand { get; }
+        public ICommand UpdatingAManagerCommand { get; }
+        public ICommand UpdatingAProductCommand { get; }
         public ICommand AddProductCommand { get; }
 
-        private bool CanUpdateCommandExecute(object p) => true;
-        private void OnUpdateCommandExecuted(object p)
+        private bool CanUpdatingAClientCommandExecute(object p) => true;
+        private void OnUpdatingAClientCommandExecuted(object p)
         {
             _db.Clients.AddOrUpdate(_clients.ToArray());
             _db.SaveChanges();
         }
+
+        private bool CanUpdatingAManagerCommandExecute(object p) => true;
+        private void OnUpdatingAManagerCommandExecuted(object p)
+        {
+            _db.Managers.AddOrUpdate(_managers.ToArray());
+            _db.SaveChanges();
+        }
+
+        private bool CanUpdatingAProductCommandExecute(object p) => true;
+        private void OnUpdatingAProductCommandExecuted(object p)
+        {
+            _db.Products.AddOrUpdate(_products.ToArray());
+            _db.SaveChanges();
+        }
+
+        //private void On(object p)
+        //{
+
+        //}
 
         private bool CanAddProductCommandExecute(object p) => true;
         private void OnAddProductCommandExecuted(object p)

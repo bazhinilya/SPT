@@ -14,14 +14,14 @@
     <Grid>
         <DockPanel>
             <TabControl>
-                <TabItem Header="Клиенты">
+                <TabItem Header="{Binding TittleClients}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <GroupBox Header="Клиенты" Grid.Column="0">
-
+                        <GroupBox Header="{Binding TittleClients}" 
+                                  Grid.Column="0">
                             <DataGrid ItemsSource="{Binding Clients}" 
                                       AutoGenerateColumns="False"
                                       SelectedItem="{Binding SelectedClient}">
@@ -29,48 +29,44 @@
                                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
                                     <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*"/>
                                     <DataGridTextColumn Header="Статус" Binding="{Binding ClientStatus}" Width="*"/>
-                                    <DataGridTextColumn Header="Менеджер" Binding="{Binding ManagerId}" Width="*"/>
+                                    <DataGridTextColumn Header="ManagerId" Binding="{Binding ManagerId}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-
-                        <GroupBox Grid.Column="1">
+                        <GroupBox Header="{Binding TittleProducts}" 
+                                  Grid.Column="1">
                             <DataGrid ItemsSource="{Binding DisplayedProducts}" 
-                                      AutoGenerateColumns="True"
+                                      AutoGenerateColumns="False"
                                       SelectedItem="{Binding SelectedProduct}">
                                 <DataGrid.Columns>
-                                    <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding ClientProductId}" Width="*"/>
+                                    <DataGridTextColumn Header="ClientId" Binding="{Binding ClientId}" Width="*"/>
+                                    <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" Width="*"/>
                                     <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
                                     <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="*"/>
                                     <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="*"/>
-                                    <DataGridTextColumn Header="Срок подписки" Binding="{Binding SubcriptionPeriod}" Width="*"/>-->
+                                    <DataGridTextColumn Header="Срок подписки" Binding="{Binding SubcriptionPeriod}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <!--При нажатии AddProductCommand без UpdateCommand - ошибка
-                            надо аблокировать-->
-                            
-
                         </GroupBox>
                         <StackPanel VerticalAlignment="Bottom">
-                            <Button Command="{Binding UpdateCommand}" Content="Сохранить измениения" Width="140" HorizontalAlignment="Left" Margin="6,0,0,6"/>
-                        
+                            <Button Command="{Binding UpdatingAClientCommand}" Content="Сохранить" Width="80" HorizontalAlignment="Left" Margin="6,0,0,6"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1"
                                     VerticalAlignment="Bottom"
                                     Margin="6,0,0,6">
-                            <Button Command="{Binding AddProductCommand}" Content="Добавить" HorizontalAlignment="Left" Height="21" Width="84" VerticalAlignment="Bottom"/>
+                            <Button Command="{Binding AddProductCommand}" Content="Добавить" HorizontalAlignment="Left" Height="21" Width="80" VerticalAlignment="Bottom"/>
                         </StackPanel>
-
                     </Grid>
                 </TabItem>
-                <!--Менеджеры-->
-                <TabItem Header="Менеджеры">
+                <TabItem Header="{Binding TittleManagers}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="400"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <GroupBox Grid.Column="0">
+                        <GroupBox Header="{Binding TittleManagers}" 
+                                  Grid.Column="0">
                             <DataGrid ItemsSource="{Binding Managers}"
                                       AutoGenerateColumns="False"
                                       SelectedItem="{Binding SelectedManager}">
@@ -80,21 +76,32 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
-                        
-                        <GroupBox Grid.Column="1">
+                        <GroupBox Header="{Binding TittleClients}" 
+                                  Grid.Column="1">
                             <DataGrid ItemsSource="{Binding ClientsByManager}" 
-                                      AutoGenerateColumns="True"
+                                      AutoGenerateColumns="False"
                                       SelectedItem="{Binding SelectedClient}">
                                 <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="*"/>
+                                    <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="*"/>
+                                    <DataGridTextColumn Header="Статус" Binding="{Binding ClientStatus}" Width="*"/>
+                                    <DataGridTextColumn Header="ManagerId" Binding="{Binding ManagerId}" Width="*"/>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
+                        <StackPanel VerticalAlignment="Bottom">
+                            <Button Command="{Binding UpdatingAManagerCommand}" Content="Сохранить" Width="80" HorizontalAlignment="Left" Margin="6,0,0,6"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1"
+                                    VerticalAlignment="Bottom"
+                                    Margin="6,0,0,6">
+                            <Button Command="{Binding UpdatingAClientCommand}" Content="Добавить" HorizontalAlignment="Left" Height="21" Width="80" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
-                    
                 </TabItem>
-                <TabItem Header="Продукты">
+                <TabItem Header="{Binding TittleProducts}">
                     <Grid>
-                        <GroupBox>
+                        <GroupBox Header="{Binding TittleProducts}">
                             <DataGrid ItemsSource="{Binding Products}"
                                       AutoGenerateColumns="False">
                                 <DataGrid.Columns>
@@ -106,6 +113,9 @@
                                 </DataGrid.Columns>
                             </DataGrid>
                         </GroupBox>
+                        <StackPanel VerticalAlignment="Bottom">
+                            <Button Command="{Binding UpdatingAProductCommand}" Content="Сохранить" Width="80" HorizontalAlignment="Left" Margin="6,0,0,6"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
             </TabControl>
