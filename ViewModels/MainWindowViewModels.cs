@@ -182,11 +182,6 @@ namespace SPT.ViewModels
             _db.SaveChanges();
         }
 
-        //private void On(object p)
-        //{
-
-        //}
-
         private bool CanAddProductCommandExecute(object p) => true;
         private void OnAddProductCommandExecuted(object p)
         {
